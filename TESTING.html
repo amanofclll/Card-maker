@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sans Classic Parts Loyalty Card</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+        .card-container {
+            width: 600px;
+            height: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px; /* Space between front and back cards */
+            margin-bottom: 20px;
+        }
+        .card-face {
+            width: 100%;
+            height: 350px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 30px;
+            box-sizing: border-box;
+            border-radius: 15px;
+            background: url('https://i.ibb.co/KjCDxsH/Cards-1200-x-690-px.png') no-repeat center center;
+            background-size: cover;
+            color: black;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        .card-face::before {
+            content: '';
+            position: absolute;
+            top: -50px;
+            left: -50px;
+            right: -50px;
+            bottom: -50px;
+            background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 60%);
+            z-index: 1;
+        }
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            z-index: 2;
+        }
+        .brand-info {
+            text-align: right;
+        }
+        .brand-name {
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .membership-type {
+            font-size: 18px;
+            margin-top: 5px;
+        }
+        .member-info {
+            z-index: 2;
+        }
+        .member-name-label {
+            font-size: 18px;
+            margin-bottom: 5px;
+            font-weight: bold; /* Make "MEMBER NAME" bold */
+        }
+        .member-name-value {
+            font-size: 32px;
+            font-weight: bold;
+        }
+        .card-number {
+            background-color: black;
+            color: white;
+            padding: 15px;
+            font-size: 24px;
+            letter-spacing: 2px;
+            width: 100%;
+            box-sizing: border-box;
+            text-align: center;
+            margin: 20px 0;
+            z-index: 2;
+        }
+        .card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            z-index: 2;
+        }
+        .expiry-date {
+            font-size: 16px;
+            font-weight: bold; /* Make "CARD EXPIRY DATE" bold */
+        }
+        .editable.expiry-date-value {
+            font-weight: normal; /* Ensure the actual expiry date remains unbolded */
+        }
+        .website {
+            font-size: 16px;
+        }
+        .discount-info {
+            text-align: right;
+        }
+        .discount {
+            font-size: 72px;
+            font-weight: bold;
+            line-height: 1;
+        }
+        .off-text {
+            font-size: 14px;
+        }
+        .editable {
+            border: none;
+            background: transparent;
+            font-family: inherit;
+            font-size: inherit;
+            font-weight: inherit;
+            color: inherit;
+            outline: none;
+        }
+        .loyalty-title {
+            background-color: black;
+            color: white;
+            font-size: 36px;
+            font-weight: bold;
+            padding: 15px;
+            text-align: center;
+            margin: -30px -30px 20px -30px;
+        }
+        .card-info {
+            font-size: 18px;
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+        .back-footer {
+            text-align: right;
+            font-size: 14px;
+        }
+        .footer-brand {
+            font-weight: bold; /* Makes the text bold */
+        }
+        #downloadButton {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="card-container">
+        <div class="card-face card-front" id="frontCard">
+            <div class="card-header">
+                <div class="member-info">
+                    <div class="member-name-label">MEMBER NAME</div>
+                    <input type="text" class="editable member-name-value" value="RAVAN">
+                </div>
+                <div class="brand-info">
+                    <div class="brand-name">SANS CLASSIC PARTS</div>
+                    <div class="membership-type">GOLD MEMBERSHIP</div>
+                </div>
+            </div>
+            <div class="card-number">
+                <input type="text" class="editable" value="2409 9100 0000 0000" maxlength="21">
+            </div>
+            <div class="card-footer">
+                <div>
+                    <div class="expiry-date">CARD EXPIRY DATE: 
+                        <input type="text" class="editable expiry-date-value" value="00/00/2025" maxlength="10">
+                    </div>
+                    <div class="website">www.sansclassicparts.com</div>
+                </div>
+                <div class="discount-info">
+                    <div class="discount">7%</div>
+                    <div class="off-text">OFF IN-STORE & ONLINE</div>
+                </div>
+            </div>
+        </div>
+        <div class="card-face card-back" id="backCard">
+            <div class="loyalty-title">LOYALTY CARD</div>
+            <div class="card-info">
+                Introducing our Customer Loyalty Gold Card!<br>
+                Enjoy 7% OFF on all in-store and online purchases for 1 year.
+            </div>
+            <div class="back-footer">
+                <div class="footer-brand">Sans Classic Parts</div>
+                <div>www.sansclassicparts.com</div>
+                <div>Info@sansclassicparts.com</div>
+            </div>
+        </div>
+    </div>
+    <button id="downloadButton">Download PDF</button>
+
+    <!-- Include jsPDF and html2canvas libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.2/jspdf.min.js"></script>
+
+    <script>
+        document.getElementById('downloadButton').addEventListener('click', function() {
+            const pdf = new jsPDF('p', 'pt', 'a4');
+            const pageWidth = pdf.internal.pageSize.width;
+            const pageHeight = pdf.internal.pageSize.height;
+            const cardWidth = 600; // Width of the card
+            const cardHeight = 350; // Height of the card
+            const margin = 20; // Margin around the cards
+
+            // Capture the front card
+            html2canvas(document.getElementById('frontCard'), { scale: 2 }).then(function(canvas) {
+                const imgData = canvas.toDataURL('image/png');
+                const imgWidth = cardWidth;
+                const imgHeight = cardHeight;
+
+                pdf.addImage(imgData, 'PNG', (pageWidth - imgWidth) / 2, margin, imgWidth, imgHeight);
+                
+                // Add space between cards
+                const totalHeight = imgHeight + 2 * margin;
+                
+                // Capture the back card
+                html2canvas(document.getElementById('backCard'), { scale: 2 }).then(function(canvas) {
+                    const imgData = canvas.toDataURL('image/png');
+                    pdf.addImage(imgData, 'PNG', (pageWidth - imgWidth) / 2, totalHeight, imgWidth, imgHeight);
+
+                    // Save the PDF
+                    pdf.save('loyalty_card.pdf');
+                });
+            });
+        });
+    </script>
+</body>
+</html>
