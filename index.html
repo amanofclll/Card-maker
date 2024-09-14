@@ -22,7 +22,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 20px; /* Space between front and back cards */
+            gap: 20px;
             margin-bottom: 20px;
         }
         .card-face {
@@ -74,7 +74,7 @@
         .member-name-label {
             font-size: 18px;
             margin-bottom: 5px;
-            font-weight: bold; /* Make "MEMBER NAME" bold */
+            font-weight: bold;
         }
         .member-name-value {
             font-size: 32px;
@@ -84,13 +84,25 @@
             background-color: black;
             color: white;
             padding: 15px;
-            font-size: 24px;
+            font-size: 30px;
             letter-spacing: 2px;
             width: 100%;
             box-sizing: border-box;
             text-align: center;
             margin: 20px 0;
             z-index: 2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .card-number input {
+            background-color: black;
+            color: white;
+            border: none;
+            font-size: 30px;
+            text-align: center;
+            width: 100%;
+            max-width: 100%;
         }
         .card-footer {
             display: flex;
@@ -100,10 +112,10 @@
         }
         .expiry-date {
             font-size: 16px;
-            font-weight: bold; /* Make "CARD EXPIRY DATE" bold */
+            font-weight: bold;
         }
         .editable.expiry-date-value {
-            font-weight: normal; /* Ensure the actual expiry date remains unbolded */
+            font-weight: normal;
         }
         .website {
             font-size: 16px;
@@ -147,7 +159,7 @@
             font-size: 14px;
         }
         .footer-brand {
-            font-weight: bold; /* Makes the text bold */
+            font-weight: bold;
         }
         #downloadButton {
             margin-top: 20px;
@@ -171,7 +183,7 @@
                 </div>
             </div>
             <div class="card-number">
-                <input type="text" class="editable" value="2409 9100 0000 0000" maxlength="21">
+                <input type="text" class="editable" id="cardNumber" value="2409 9100 0000 0000" maxlength="21">
             </div>
             <div class="card-footer">
                 <div>
@@ -206,15 +218,29 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.2/jspdf.min.js"></script>
 
     <script>
+        function formatCardNumber(value) {
+            // Remove all non-digit characters
+            value = value.replace(/\D/g, '');
+            // Add spaces between groups of 4 digits
+            value = value.match(/.{1,4}/g)?.join(' ') || '';
+            return value;
+        }
+
+        function handleCardNumberInput(event) {
+            const input = event.target;
+            input.value = formatCardNumber(input.value);
+        }
+
+        document.getElementById('cardNumber').addEventListener('input', handleCardNumberInput);
+
         document.getElementById('downloadButton').addEventListener('click', function() {
             const pdf = new jsPDF('p', 'pt', 'a4');
             const pageWidth = pdf.internal.pageSize.width;
             const pageHeight = pdf.internal.pageSize.height;
-            const cardWidth = 600; // Width of the card
-            const cardHeight = 350; // Height of the card
-            const margin = 20; // Margin around the cards
+            const cardWidth = 600;
+            const cardHeight = 350;
+            const margin = 20;
 
-            // Capture the front card
             html2canvas(document.getElementById('frontCard'), { scale: 2 }).then(function(canvas) {
                 const imgData = canvas.toDataURL('image/png');
                 const imgWidth = cardWidth;
@@ -222,15 +248,12 @@
 
                 pdf.addImage(imgData, 'PNG', (pageWidth - imgWidth) / 2, margin, imgWidth, imgHeight);
                 
-                // Add space between cards
                 const totalHeight = imgHeight + 2 * margin;
                 
-                // Capture the back card
                 html2canvas(document.getElementById('backCard'), { scale: 2 }).then(function(canvas) {
                     const imgData = canvas.toDataURL('image/png');
                     pdf.addImage(imgData, 'PNG', (pageWidth - imgWidth) / 2, totalHeight, imgWidth, imgHeight);
 
-                    // Save the PDF
                     pdf.save('loyalty_card.pdf');
                 });
             });
