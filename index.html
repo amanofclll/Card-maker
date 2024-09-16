@@ -244,10 +244,6 @@
     </div>
     <button id="downloadButton">Download PDF</button>
 
-    <!-- Include jsPDF and html2canvas libraries -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.2/jspdf.min.js"></script>
-
     <script>
         function formatCardNumber(value) {
             // Remove all non-digit characters
@@ -265,30 +261,7 @@
         document.getElementById('cardNumber').addEventListener('input', handleCardNumberInput);
 
         document.getElementById('downloadButton').addEventListener('click', function() {
-            const pdf = new jsPDF('p', 'pt', 'a4');
-            const pageWidth = pdf.internal.pageSize.width;
-            const pageHeight = pdf.internal.pageSize.height;
-            const cardWidth = 600;
-            const cardHeight = 350;
-            const margin = 20;
-
-            html2canvas(document.getElementById('frontCard'), { scale: 2 }).then(function(canvas) {
-                const imgData = canvas.toDataURL('image/png');
-                const imgWidth = cardWidth;
-                const imgHeight = cardHeight;
-
-                pdf.addImage(imgData, 'PNG', (pageWidth - imgWidth) / 2, margin, imgWidth, imgHeight);
-                
-                const totalHeight = imgHeight + 2 * margin;
-                
-                html2canvas(document.getElementById('backCard'), { scale: 2 }).then(function(canvas) {
-                    const imgData = canvas.toDataURL('image/png');
-                    pdf.addPage();
-                    pdf.addImage(imgData, 'PNG', (pageWidth - imgWidth) / 2, margin, imgWidth, imgHeight);
-
-                    pdf.save('loyalty_card.pdf');
-                });
-            });
+            window.print(); // Open print dialogue
         });
     </script>
 </body>
